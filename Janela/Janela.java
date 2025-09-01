@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 
 public class Janela extends JFrame {
@@ -25,26 +26,7 @@ public class Janela extends JFrame {
     private JButton jbFechar;
 
     public Janela() {
-        // jbConsultar.addActionListener(new ActionListener() {
-        //     //@Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         //gravar();
-        //     }
-        // });
 
-        // jbAtualizar.addActionListener(new ActionListener() {
-        //     //@Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         //editar();
-        //     }
-        // });
-
-        // jbFechar.addActionListener(new ActionListener() {
-        //     //@Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         //cancelar();
-        //     }
-        // });
         jlAgencia = new JLabel("Código da Agência");
         jlAgencia.setBounds(10, 10, 110, 18);
         getContentPane().add(jlAgencia);
@@ -52,6 +34,10 @@ public class Janela extends JFrame {
         jtfAgencia = new JTextField();
         jtfAgencia.setBounds(125, 10, 50, 20);
         getContentPane().add(jtfAgencia);
+
+        jlConta = new JLabel("Número da Conta");
+        jlConta.setBounds(180, 10, 130, 18);
+        getContentPane().add(jlConta);
 
         jtfConta = new JTextField();
         jtfConta.setBounds(315, 10, 60, 20);
@@ -99,13 +85,13 @@ public class Janela extends JFrame {
 
         jrbCorrente = new JRadioButton("Conta Corrente");
         jrbCorrente.setBounds(100, 150, 111, 20);
-        jrbCorrente.setMnemonic('C'); // Atalho Alt + C
+        jrbCorrente.setMnemonic('C');                //ALT C
         jrbCorrente.setSelected(true);
         getContentPane().add(jrbCorrente);
 
         jrbPoupanca = new JRadioButton("Conta Poupança");
         jrbPoupanca.setBounds(225, 150, 118, 20);
-        jrbPoupanca.setMnemonic('P'); // Atalho Alt + P
+        jrbPoupanca.setMnemonic('P');                  //ALT P
         getContentPane().add(jrbPoupanca);
 
         bgContas = new ButtonGroup();
@@ -116,21 +102,40 @@ public class Janela extends JFrame {
         jSeparator02.setBounds(10, 180, 365, 10);
         getContentPane().add(jSeparator02);
 
+
         jbConsultar = new JButton("Consultar");
         jbConsultar.setBounds(35, 190, 100, 23);
-        jbConsultar.setMnemonic('S'); // Atalho Alt + S
+        jbConsultar.setMnemonic('S');                     //ALT S
         getContentPane().add(jbConsultar);
+
+        jbConsultar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (jtfNome.getText().equals("") || jtfCpf.getText().equals("")) { //tratamento de campo vazio
+                    JOptionPane.showMessageDialog(Janela.this, "Os campos não podem estar vazios");//pop-up de campos vazios
+                } else {
+                    JOptionPane.showMessageDialog(Janela.this, "Consulta realizada com sucesso");//pop-up de consulta realizada
+                }
+            }
+        });
 
         jbAtualizar = new JButton("Atualizar");
         jbAtualizar.setBounds(145, 190, 100, 23);
-        jbAtualizar.setMnemonic('A'); // Atalho Alt + A
+        jbAtualizar.setMnemonic('A');                           //Alt A
         jbAtualizar.setEnabled(false);
         getContentPane().add(jbAtualizar);
 
+
         jbFechar = new JButton("Fechar");
         jbFechar.setBounds(255, 190, 100, 23);
-        jbFechar.setMnemonic('F'); // Atalho Alt + F
+        jbFechar.setMnemonic('F');                              //ALT F
         getContentPane().add(jbFechar);
+        
+        jbFechar.addActionListener(new ActionListener() {
+            //@Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
 
         centralizar();
 
@@ -140,6 +145,13 @@ public class Janela extends JFrame {
         getContentPane().setLayout(null);
         setLocationRelativeTo(null);
         setVisible(true);
+
+        // jbAtualizar.addActionListener(new ActionListener() {
+        //     //@Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         //editar();
+        //     }
+        // });
     }
 
     private void centralizar() {
@@ -161,5 +173,4 @@ public class Janela extends JFrame {
     public static void main(String[] args) {
         new Janela();
     }
-
 }
